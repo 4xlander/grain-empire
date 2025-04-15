@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 849a758fa8574814fbdf2bd84e386748, type: 3}
+  m_Name: BuildingConfig_Silo
+  m_EditorClassIdentifier: 
+  Id: Silo
+  Price: 200
+  Icon: {fileID: 0}
+  Prefab: {fileID: 5029733794590844033, guid: f6a041811e20b76408b0f1e7d1a66bdf, type: 3}
