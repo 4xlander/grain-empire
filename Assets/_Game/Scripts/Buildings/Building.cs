@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 namespace Game
@@ -9,22 +10,24 @@ namespace Game
 
         [SerializeField] private int _plotId;
         [SerializeField] private GameObject _lockedVisual;
+        [SerializeField] private TextMeshPro _priceText;
         [SerializeField] private Transform _buildingParent;
         [SerializeField] private BuildingConfigSO _buildingConfig;
 
-        private Camera _mainCamera;
         private bool _isBuilt;
 
         private void Start()
         {
-            _mainCamera = Camera.main;
+            _priceText.text = $"${_buildingConfig.Price}";
         }
 
         public void OnUpdate(float deltaTime)
         {
+            if (!gameObject.activeInHierarchy) return;
+
             if (Input.GetMouseButtonDown(0))
             {
-                Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {

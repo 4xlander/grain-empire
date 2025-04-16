@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Game
@@ -7,6 +8,8 @@ namespace Game
         private readonly Balance _balance;
         private readonly List<BuildingData> _buildingsData = new();
         private readonly Dictionary<int, Building> _buildings = new();
+
+        public event EventHandler OnConstruct;
 
         public BuildingsManager(Balance balance, List<BuildingData> buildingsData, Building[] buildings)
         {
@@ -43,6 +46,8 @@ namespace Game
             };
 
             _buildingsData.Add(newBuilding);
+
+            OnConstruct?.Invoke(this, EventArgs.Empty);
         }
     }
 }

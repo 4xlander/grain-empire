@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 namespace Game
@@ -13,8 +14,18 @@ namespace Game
         [SerializeField] private FieldConfigSO _config;
         [SerializeField] private GameObject _lockedVisual;
         [SerializeField] private GameObject _unlockedVisual;
+        [SerializeField] private TextMeshPro _priceText;
 
-        private Camera _mainCamera;
+        [Space]
+        [SerializeField] private GameObject _plowedVisual;
+        [SerializeField] private GameObject _growStep1Visual;
+        [SerializeField] private GameObject _growStep2Visual;
+        [SerializeField] private GameObject _growStep3Visual;
+
+        private const float GROW_STEP_1 = 0.3f;
+        private const float GROW_STEP_2 = 0.6f;
+        private const float GROW_STEP_3 = 1f;
+
         private FieldData _fieldData;
         private bool _isBuilt;
         private Inventory _inventory;
@@ -30,15 +41,15 @@ namespace Game
             Gathered,
         }
 
-        private void Start()
-        {
-            _mainCamera = Camera.main;
-        }
-
-        public void Construct(FieldData fieldData, Inventory inventory)
+        public void Inject(FieldData fieldData, Inventory inventory)
         {
             _inventory = inventory;
             _fieldData = fieldData;
+        }
+
+        private void Start()
+        {
+            _priceText.text = $"${_config.Price}";
         }
 
         public void Build()
@@ -57,6 +68,8 @@ namespace Game
 
         public void OnUpdate(float deltaTime)
         {
+            if (!gameObject.activeInHierarchy) return;
+
             if (_isBuilt)
             {
                 _unlockedVisual.SetActive(true);
@@ -71,7 +84,7 @@ namespace Game
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
                     if (Physics.Raycast(ray, out RaycastHit hit))
                     {
@@ -87,6 +100,7 @@ namespace Game
             switch (_fieldData.State)
             {
                 case State.Idle:
+                    ResetVisual();
                     ChangeState(State.Plowing);
                     break;
 
@@ -102,6 +116,8 @@ namespace Game
                     break;
 
                 case State.Planting:
+                    _plowedVisual.SetActive(true);
+
                     progress = _fieldData.Progress += deltaTime;
                     NotifyProgressChanged(progress / _config.PlantTime);
 
@@ -114,7 +130,10 @@ namespace Game
 
                 case State.Growing:
                     progress = _fieldData.Progress += deltaTime;
-                    NotifyProgressChanged(progress / _config.GrowthTime);
+                    var progressNormalized = progress / _config.GrowthTime;
+
+                    UpdateGrowingVisual(progressNormalized);
+                    NotifyProgressChanged(progressNormalized);
 
                     if (progress >= _config.GrowthTime)
                     {
@@ -143,6 +162,38 @@ namespace Game
                     ChangeState(State.Idle);
                     break;
             }
+        }
+
+        private void UpdateGrowingVisual(float progress)
+        {
+            if (progress >= GROW_STEP_1 && progress < GROW_STEP_2)
+            {
+                _growStep1Visual.SetActive(true);
+                _growStep2Visual.SetActive(false);
+                _growStep3Visual.SetActive(false);
+            }
+
+            if (progress >= GROW_STEP_2 && progress < GROW_STEP_3)
+            {
+                _growStep1Visual.SetActive(false);
+                _growStep2Visual.SetActive(true);
+                _growStep3Visual.SetActive(false);
+            }
+
+            if (progress >= GROW_STEP_3)
+            {
+                _growStep2Visual.SetActive(false);
+                _growStep1Visual.SetActive(false);
+                _growStep3Visual.SetActive(true);
+            }
+        }
+
+        private void ResetVisual()
+        {
+            _plowedVisual.SetActive(false);
+            _growStep1Visual.SetActive(false);
+            _growStep2Visual.SetActive(false);
+            _growStep3Visual.SetActive(false);
         }
 
         private void ResetProgress()

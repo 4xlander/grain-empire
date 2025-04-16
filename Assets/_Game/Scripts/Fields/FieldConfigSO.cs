@@ -12,7 +12,5 @@ namespace Game
         public float GrowthTime = 30f;
         public float GatherTime = 20f;
         public int Harvest = 50;
-
-        public GameObject Prefab;
     }
 }

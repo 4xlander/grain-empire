@@ -10,6 +10,8 @@ namespace Game
         private readonly Dictionary<int, Field> _fields = new();
         private readonly Inventory _inventory;
 
+        public event EventHandler OnConstruct;
+
         public FieldsManager(Balance balance, List<FieldData> fieldsData, Field[] fields, Inventory inventory)
         {
             _balance = balance;
@@ -25,7 +27,7 @@ namespace Game
             foreach (var fieldData in _fieldsData)
                 if (_fields.TryGetValue(fieldData.PlotId, out var field))
                 {
-                    field.Construct(fieldData, _inventory);
+                    field.Inject(fieldData, _inventory);
                     field.Build();
                 }
         }
@@ -50,7 +52,9 @@ namespace Game
             };
 
             _fieldsData.Add(newField);
-            field.Construct(newField, _inventory);
+            field.Inject(newField, _inventory);
+
+            OnConstruct?.Invoke(this, EventArgs.Empty);
         }
     }
 }

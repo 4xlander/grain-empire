@@ -1730,10 +1730,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2508683413382992185}
-    - targetCorrespondingSourceObject: {fileID: 8523812733536857788, guid: 2ba82124c3d7cbf4084268688c4598b3,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2048140084889099318}
   m_SourcePrefab: {fileID: 100100000, guid: 2ba82124c3d7cbf4084268688c4598b3, type: 3}
 --- !u!4 &176071331334068602 stripped
 Transform:
@@ -1741,6 +1737,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3579880753980901761}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1734279119303529355 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3008175026827221514, guid: 2ba82124c3d7cbf4084268688c4598b3,
+    type: 3}
+  m_PrefabInstance: {fileID: 3579880753980901761}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4594056359832427060 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1040075873621218229, guid: 2ba82124c3d7cbf4084268688c4598b3,
@@ -1769,29 +1777,17 @@ MonoBehaviour:
   _config: {fileID: 11400000, guid: 2f9025ae561c16240b432a99c521acf5, type: 2}
   _lockedVisual: {fileID: 4594056359832427060}
   _unlockedVisual: {fileID: 5180511835087988541}
+  _priceText: {fileID: 1734279119303529355}
+  _plowedVisual: {fileID: 5963607246342130720}
+  _growStep1Visual: {fileID: 1549701500990637876}
+  _growStep2Visual: {fileID: 4502186884627225986}
+  _growStep3Visual: {fileID: 6870167117248800306}
 --- !u!1 &5180511835087988541 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8523812733536857788, guid: 2ba82124c3d7cbf4084268688c4598b3,
     type: 3}
   m_PrefabInstance: {fileID: 3579880753980901761}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2048140084889099318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5180511835087988541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1540f644f41015f4088cef0a4d7ddd49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _field: {fileID: 2508683413382992185}
-  _plowedVisual: {fileID: 5963607246342130720}
-  _growStep1Visual: {fileID: 1549701500990637876}
-  _growStep2Visual: {fileID: 4502186884627225986}
-  _growStep3Visual: {fileID: 6870167117248800306}
 --- !u!1 &5963607246342130720 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7164303028909049249, guid: 2ba82124c3d7cbf4084268688c4598b3,

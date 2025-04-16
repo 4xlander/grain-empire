@@ -27,7 +27,7 @@ namespace Game
             _quitGameUI.SetActive(false);
         }
 
-        public void Construct(Balance balance)
+        public void Inject(Balance balance)
         {
             _balance = balance;
             _balance.OnBalanceChanged += Balance_OnBalanceChanged;

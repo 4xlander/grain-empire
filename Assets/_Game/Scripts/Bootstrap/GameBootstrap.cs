@@ -7,6 +7,8 @@ namespace Game
     {
         [SerializeField] private GameConfigSO _gameConfig;
         [SerializeField] private UpdateManager _updateManager;
+        [SerializeField] private FarmUpgrades _farmUpgrades;
+        [Space]
         [SerializeField] private Field[] _fields;
         [SerializeField] private Building[] _buildings;
         [Header("UI")]
@@ -35,7 +37,10 @@ namespace Game
             foreach (var field in _fields)
                 _updateManager.Register(field);
 
-            _gameplayUI.Construct(balance);
+            var farmManager = new FarmManager(_gameState, fieldsManager, buildingsManager);
+            _farmUpgrades.Inject(farmManager);
+
+            _gameplayUI.Inject(balance);
         }
 
         private void OnApplicationQuit()
