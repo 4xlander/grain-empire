@@ -22,6 +22,7 @@ namespace Game
             foreach (var field in fields)
             {
                 field.OnStateChanged += Field_OnStateChanged;
+                Field_OnStateChanged(field);
             }
         }
 

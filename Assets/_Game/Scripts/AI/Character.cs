@@ -17,9 +17,7 @@ namespace Game
 
         [SerializeField] private NavMeshAgent _navAgent;
         [SerializeField] private Animator _animator;
-        [SerializeField] private Transform[] _targets;
 
-        private int _index = 0;
         private State _state;
         private ResourceData _resource;
         private Action<Character> _onDestination;

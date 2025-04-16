@@ -988,17 +988,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _navAgent: {fileID: 67499101}
   _animator: {fileID: 67499099}
-  _targets:
-  - {fileID: 741267426}
-  - {fileID: 1336986687}
-  - {fileID: 2023610721}
-  - {fileID: 168486845}
-  - {fileID: 207103134}
-  - {fileID: 226701620}
-  - {fileID: 1602975929}
-  - {fileID: 1177367391}
-  - {fileID: 552779447}
-  - {fileID: 899477291}
 --- !u!195 &67499101
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1586,7 +1575,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1055209483}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99996257
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1996,7 +1985,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0000061859605}
+  m_AnchoredPosition: {x: 0, y: 0.000060765575}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &208207775
@@ -5104,37 +5093,6 @@ MonoBehaviour:
   _container: {fileID: 208207774}
   _itemUITemplate: {fileID: 1947463990}
   _closeButton: {fileID: 1680146929}
---- !u!1 &899477290
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 899477291}
-  m_Layer: 0
-  m_Name: StartPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &899477291
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 899477290}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.34, y: 0, z: 7.26}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &915727170
 GameObject:
   m_ObjectHideFlags: 0
@@ -6005,17 +5963,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _navAgent: {fileID: 1037587037}
   _animator: {fileID: 1037587035}
-  _targets:
-  - {fileID: 741267426}
-  - {fileID: 1336986687}
-  - {fileID: 2023610721}
-  - {fileID: 168486845}
-  - {fileID: 207103134}
-  - {fileID: 226701620}
-  - {fileID: 1602975929}
-  - {fileID: 1177367391}
-  - {fileID: 552779447}
-  - {fileID: 899477291}
 --- !u!1 &1055209482
 GameObject:
   m_ObjectHideFlags: 0
@@ -11217,4 +11164,3 @@ SceneRoots:
   - {fileID: 1533931694}
   - {fileID: 1442916865}
   - {fileID: 67499097}
-  - {fileID: 899477291}

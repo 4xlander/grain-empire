@@ -32,12 +32,8 @@ namespace Game
             _inventoryUIButton.onClick.AddListener(() => inventoryPresenter.ShowInventory());
 
             var buildingsManager = new BuildingsManager(balance, _gameState.Buildings, _buildings);
-            foreach (var building in _buildings)
-                _updateManager.Register(building);
 
             var fieldsManager = new FieldsManager(balance, _gameState.Fields, _fields, inventory);
-            foreach (var field in _fields)
-                _updateManager.Register(field);
 
             var farmManager = new FarmManager(_gameState, fieldsManager, buildingsManager);
             _farmUpgrades.Inject(farmManager);
@@ -45,6 +41,12 @@ namespace Game
             _gameplayUI.Inject(balance);
 
             var dispatcher = new Dispatcher(_fields, _workers, _buildings[0], inventory);
+
+            foreach (var building in _buildings)
+                _updateManager.Register(building);
+
+            foreach (var field in _fields)
+                _updateManager.Register(field);
         }
 
         private void OnApplicationQuit()

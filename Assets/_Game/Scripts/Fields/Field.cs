@@ -28,10 +28,10 @@ namespace Game
 
         private FieldData _fieldData;
         private bool _isBuilt;
-        private Inventory _inventory;
 
         public enum State
         {
+            None,
             Idle,
             Plowing,
             Planting,
@@ -43,7 +43,6 @@ namespace Game
 
         public void Inject(FieldData fieldData, Inventory inventory)
         {
-            _inventory = inventory;
             _fieldData = fieldData;
         }
 
@@ -62,9 +61,7 @@ namespace Game
 
         public int GetPlotId() => _plotId;
 
-        public State GetState() => _fieldData.State;
-
-        public float GetProgress() => _fieldData.Progress;
+        public State GetState() => _fieldData == null ? State.None : _fieldData.State;
 
         public void OnUpdate(float deltaTime)
         {
@@ -116,6 +113,7 @@ namespace Game
                     break;
 
                 case State.Plowing:
+                    ResetVisual();
                     var progress = _fieldData.Progress += deltaTime;
                     NotifyProgressChanged(progress / _config.PlowTime);
 
@@ -127,6 +125,7 @@ namespace Game
                     break;
 
                 case State.Planting:
+                    ResetVisual();
                     _plowedVisual.SetActive(true);
 
                     progress = _fieldData.Progress += deltaTime;
