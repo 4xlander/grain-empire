@@ -11,6 +11,8 @@ namespace Game
         [Space]
         [SerializeField] private Field[] _fields;
         [SerializeField] private Building[] _buildings;
+        [Space]
+        [SerializeField] private Character[] _workers;
         [Header("UI")]
         [SerializeField] private GameplayUI _gameplayUI;
         [SerializeField] private InventoryUI _inventoryUI;
@@ -41,6 +43,8 @@ namespace Game
             _farmUpgrades.Inject(farmManager);
 
             _gameplayUI.Inject(balance);
+
+            var dispatcher = new Dispatcher(_fields, _workers, _buildings[0], inventory);
         }
 
         private void OnApplicationQuit()

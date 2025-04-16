@@ -7,7 +7,7 @@ namespace Game
     public class Field : MonoBehaviour, IUpdatable, IHasProgress
     {
         public event EventHandler OnClick;
-        public event EventHandler OnStateChanged;
+        public event Action<Field> OnStateChanged;
         public event EventHandler<IHasProgress.OnProgressChangedEventArgs> OnProgressChanged;
 
         [SerializeField] private int _plotId;
@@ -95,6 +95,17 @@ namespace Game
             }
         }
 
+        public ResourceData Grab()
+        {
+            var result = new ResourceData
+            {
+                Id = _config.CropId,
+                Value = _config.Harvest,
+            };
+            ChangeState(State.Idle);
+            return result;
+        }
+
         private void UpdateState(float deltaTime)
         {
             switch (_fieldData.State)
@@ -143,23 +154,6 @@ namespace Game
                     break;
 
                 case State.HarvestReady:
-                    ChangeState(State.Gathering);
-                    break;
-
-                case State.Gathering:
-                    progress = _fieldData.Progress += deltaTime;
-                    NotifyProgressChanged(progress / _config.GatherTime);
-
-                    if (progress >= _config.GatherTime)
-                    {
-                        ResetProgress();
-                        ChangeState(State.Gathered);
-                    }
-                    break;
-
-                case State.Gathered:
-                    _inventory.AddItem(_config.CropId, _config.Harvest);
-                    ChangeState(State.Idle);
                     break;
             }
         }
@@ -215,6 +209,6 @@ namespace Game
             });
 
         private void NotifyStateChanged() =>
-            OnStateChanged?.Invoke(this, EventArgs.Empty);
+            OnStateChanged?.Invoke(this);
     }
 }
