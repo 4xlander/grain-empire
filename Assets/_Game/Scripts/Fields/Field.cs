@@ -17,6 +17,7 @@ namespace Game
         private Camera _mainCamera;
         private FieldData _fieldData;
         private bool _isBuilt;
+        private Inventory _inventory;
 
         public enum State
         {
@@ -34,10 +35,25 @@ namespace Game
             _mainCamera = Camera.main;
         }
 
-        public void Construct(FieldData fieldData)
+        public void Construct(FieldData fieldData, Inventory inventory)
         {
+            _inventory = inventory;
             _fieldData = fieldData;
         }
+
+        public void Build()
+        {
+            if (_isBuilt) return;
+            _isBuilt = true;
+        }
+
+        public FieldConfigSO GetFieldConfig() => _config;
+
+        public int GetPlotId() => _plotId;
+
+        public State GetState() => _fieldData.State;
+
+        public float GetProgress() => _fieldData.Progress;
 
         public void OnUpdate(float deltaTime)
         {
@@ -123,6 +139,8 @@ namespace Game
                     break;
 
                 case State.Gathered:
+                    _inventory.AddItem(_config.CropId, _config.Harvest);
+                    ChangeState(State.Idle);
                     break;
             }
         }
@@ -147,20 +165,5 @@ namespace Game
 
         private void NotifyStateChanged() =>
             OnStateChanged?.Invoke(this, EventArgs.Empty);
-
-        public FieldConfigSO GetFieldConfig() =>
-            _config;
-
-        public void Build()
-        {
-            if (_isBuilt) return;
-            _isBuilt = true;
-        }
-
-        public int GetPlotId() =>
-            _plotId;
-
-        public State GetState() =>
-            _fieldData.State;
     }
 }

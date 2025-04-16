@@ -23,10 +23,8 @@ namespace Game
 
         private void Start()
         {
-            _plowedVisual.SetActive(false);
-            _growStep1Visual.SetActive(false);
-            _growStep2Visual.SetActive(false);
-            _growStep3Visual.SetActive(false);
+            UpdateState();
+            UpdateProgress(_field.GetProgress());
         }
 
         private void OnDisable()
@@ -36,6 +34,16 @@ namespace Game
         }
 
         private void Field_OnStateChanged(object sender, EventArgs e)
+        {
+            UpdateState();
+        }
+
+        private void Field_OnProgressChanged(object sender, IHasProgress.OnProgressChangedEventArgs e)
+        {
+            UpdateProgress(e.ProgressNormalized);
+        }
+
+        private void UpdateState()
         {
             switch (_field.GetState())
             {
@@ -62,13 +70,11 @@ namespace Game
             }
         }
 
-
-        private void Field_OnProgressChanged(object sender, IHasProgress.OnProgressChangedEventArgs e)
+        private void UpdateProgress(float progress)
         {
             if (_field.GetState() != Field.State.Growing)
                 return;
 
-            var progress = e.ProgressNormalized;
             if (progress >= GROW_STEP_1 && progress < GROW_STEP_2)
             {
                 _growStep1Visual.SetActive(true);

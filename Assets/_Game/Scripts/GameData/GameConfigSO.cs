@@ -8,5 +8,6 @@ namespace Game
         [Tooltip("Time in seconds")]
         public float AutoSaveTime = 60f;
         public float StartMoney;
+        public InventoryItemConfigSO[] InventoryItemsConfigs;
     }
 }

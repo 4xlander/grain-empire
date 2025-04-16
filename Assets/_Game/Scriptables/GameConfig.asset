@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AutoSaveTime: 60
   StartMoney: 1000
+  InventoryItemsConfigs:
+  - {fileID: 11400000, guid: f7f20180eb260f741bff277eceac59cb, type: 2}
+  - {fileID: 11400000, guid: 4fca9af448b556449aeeafeebf56f60c, type: 2}

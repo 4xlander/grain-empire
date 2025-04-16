@@ -6,6 +6,6 @@ namespace Game
     [Serializable]
     public class InventoryData
     {
-        public Dictionary<string, int> Items = new();
+        public List<InventoryItemData> Items = new();
     }
 }
