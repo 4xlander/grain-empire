@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace Game
 {
@@ -24,11 +25,11 @@ namespace Game
 
         private void Update()
         {
-            bool isMoving = _navAgent.velocity.magnitude > 0.1f;
+            bool isMoving = _navAgent.velocity.magnitude > 0.2f;
             _animator.SetBool("Walk", isMoving);
             _animator.SetFloat("Speed", _navAgent.velocity.magnitude / _navAgent.speed);
 
-            if (_navAgent.velocity.magnitude > 0.1f)
+            if (isMoving)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(_navAgent.velocity.normalized);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
@@ -43,20 +44,24 @@ namespace Game
             }
         }
 
-        public void MoveTo(Vector3 position, Action<Character> onComplete)
+        public void MoveTo(Vector3 targetPosition, Action<Character> onComplete)
         {
             _onDestination = onComplete;
+            var offset = GetRandomOffset(_navAgent.transform.position, targetPosition, 0.4f, 60f);
+            var position = targetPosition + offset;
             _navAgent.SetDestination(position);
             ChangeState(State.Walk);
         }
 
         public void ApplyResource(ResourceData resource)
         {
+            _navAgent.avoidancePriority = 30;
             _resource = resource;
         }
 
         public ResourceData GrabResource()
         {
+            _navAgent.avoidancePriority = 60;
             var result = _resource;
             _resource = null;
             ChangeState(State.Free);
@@ -77,6 +82,19 @@ namespace Game
         {
             _state = newState;
             OnStateChanged?.Invoke(this);
+        }
+
+        private Vector3 GetRandomOffset(Vector3 agentPos, Vector3 targetPos, float distance, float angleDeg)
+        {
+            var direction = (agentPos - targetPos).normalized;
+
+            var halfAngle = angleDeg * 0.5f;
+            var randomAngle = Random.Range(-halfAngle, halfAngle);
+
+            var rotation = Quaternion.Euler(0, randomAngle, 0);
+            var offsetDir = rotation * direction;
+
+            return offsetDir * distance;
         }
     }
 }
